@@ -12,6 +12,11 @@ public class bicicleta
         this.precio = precio;
         this.referencia = referencia;
     }
+    
+
+    public bicicleta() {
+    }
+
 
     public String getMarca() {
         return marca;
