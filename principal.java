@@ -35,8 +35,11 @@ public class principal
                     m.modifRepuesto(pila);
                     break;
                 case 4:
+                    pila = m.elimiRep(pila);
+                    m.MostrarPila(pila);
                     break;
                 case 5:
+                    m.venderRep(pila);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "BYE");

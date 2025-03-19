@@ -49,7 +49,7 @@ public class metodos
     {
         for (bicicleta bici : pila) //Deshapilando para mostrar(es lo mismo que un for normal)
         {
-            JOptionPane.showMessageDialog(null, "Datos del repuesto buscado\n"+
+            JOptionPane.showMessageDialog(null, "LA PILA\n"+
                          "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
                          "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
         }
@@ -91,6 +91,8 @@ public class metodos
         while (pila.empty()) 
         {
             JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
+            //pila = LlenarPila(); //para me lleve directamente al metodo llenar y no al menu y comento el return
+            return;
         }
         int refABusc;
         refABusc = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia que desea buscar")));
@@ -111,6 +113,8 @@ public class metodos
         while (pila.empty()) 
         {
             JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
+            //pila = LlenarPila(); //para me lleve directamente al metodo llenar y no al menu y comento el return
+            return;
         }
         int refAMod = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia del repuesto que desea modificar")));
         boolean amodif = false;
@@ -118,9 +122,9 @@ public class metodos
         {
             if(bici.getReferencia() == refAMod)
             {
-                amodif = true;
-                int opc;
-                opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese una opción\n" + "1: Marca\n" + "2: Referencia\n" +
+                    amodif = true;
+                    int opc;
+                    opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese una opción\n" + "1: Marca\n" + "2: Referencia\n" +
                                                                      "3: Cantidad\n" + "4:Precio\n"));
                     switch (opc) 
                     {
@@ -144,16 +148,77 @@ public class metodos
                             JOptionPane.showMessageDialog(null, "Opción no disponible");
                         break;
                     }
-                    JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
-                    JOptionPane.showMessageDialog(null, "Datos del repuesto modificado\n"+
-                         "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
-                         "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
-                    return;
+                        JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
+                        JOptionPane.showMessageDialog(null, "Datos del repuesto modificado\n"+
+                        "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
+                        "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
+                        return;
             }
         }
         if(!amodif)//llega falso porque "como no entra al if de arriba el se comvierte en true" y por eso el !amodif(false)
         {
             JOptionPane.showMessageDialog(null, "Referencia de repuesto no encontrada");
+        }
+    }
+    public Stack<bicicleta> elimiRep (Stack<bicicleta> pila)
+    {
+        while (pila.empty()) 
+        {
+            JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
+            pila = LlenarPila(); //para me lleve directamente al metodo llenar y no al menu 
+            //return;
+        }
+        int refABusc = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia del repuesto que desea eliminar")));
+        for(bicicleta bici : pila)
+        {   
+            if(bici.getReferencia() == refABusc)
+            {
+                pila.remove(bici);
+                JOptionPane.showMessageDialog(null, "Repuesto eliminado");
+            }
+        }
+        return pila;
+    }
+    public void venderRep(Stack<bicicleta> pila)
+    {
+        while (pila.empty()) 
+        {
+            JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
+            pila = LlenarPila(); //para me lleve directamente al metodo llenar y no al menu 
+        }
+        int refABusc = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia a vender")));
+        boolean encontrado = false;
+        for(bicicleta bici : pila)
+        {   
+            if(bici.getReferencia() == refABusc)
+            {
+                if(bici.getCantidad() > 0)
+                {
+                    encontrado = true;
+                    int cantAVend = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad a vender")));
+                    if(cantAVend <= bici.getCantidad())
+                    {
+                        bici.setCantidad(bici.getCantidad() - cantAVend);
+                        JOptionPane.showMessageDialog(null, "Venta realizada");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Stock insuficiente");
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, " No hay Stock disponible");
+                }
+                JOptionPane.showMessageDialog(null, "Datos del repuesto vendido\n"+
+                        "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
+                        "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
+                        return;
+            }
+        }
+        if(!encontrado)
+        {
+            JOptionPane.showMessageDialog(null, "Repuesto no encontrado");
         }
     }
     
