@@ -47,13 +47,11 @@ public class metodos
     }
     public void MostrarPila(Stack<bicicleta> pila) 
     {
-        for (bicicleta o : pila) //Deshapilando para mostrar(es lo mismo que un for normal)
+        for (bicicleta bici : pila) //Deshapilando para mostrar(es lo mismo que un for normal)
         {
-            System.out.println("Marca: " + o.getMarca());
-            System.out.println("Referencia: " + o.getReferencia());
-            System.out.println("Cantidad:" + o.getCantidad());
-            System.out.println("Precio " + o.getPrecio());
-            System.out.println();
+            JOptionPane.showMessageDialog(null, "Datos del repuesto buscado\n"+
+                         "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
+                         "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
         }
     }
     /*public Stack<bicicleta> AccionesRegistro(Stack<bicicleta> pila, int opt) 
@@ -90,6 +88,10 @@ public class metodos
     }*/
     public void buscarRep (Stack<bicicleta> pila)
     {
+        while (pila.empty()) 
+        {
+            JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
+        }
         int refABusc;
         refABusc = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia que desea buscar")));
         for (bicicleta bici : pila)
@@ -111,46 +113,47 @@ public class metodos
             JOptionPane.showMessageDialog(null, "No hay repuestos ingresados");
         }
         int refAMod = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese la referencia del repuesto que desea modificar")));
+        boolean amodif = false;
         for(bicicleta bici : pila)
         {
             if(bici.getReferencia() == refAMod)
             {
+                amodif = true;
                 int opc;
-                do 
-                {
-                    opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese una opción\n" + "1: Marca\n" + "2: Referencia\n" +
+                opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese una opción\n" + "1: Marca\n" + "2: Referencia\n" +
                                                                      "3: Cantidad\n" + "4:Precio\n"));
                     switch (opc) 
                     {
                         case 1:
                             String newmarca = JOptionPane.showInputDialog("Ingrese nueva marca");
                             bici.setMarca(newmarca);
-                            JOptionPane.showMessageDialog(null, "Marca modificada con exito");
                         break;
                         case 2:
                             int newreferen = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva referencia"));
                             bici.setReferencia(newreferen);
-                            JOptionPane.showMessageDialog(null, "Referencia modificada con exito");
                         break;
                         case 3:
                             int newcant = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad"));
                             bici.setCantidad(newcant);
-                            JOptionPane.showMessageDialog(null, "Cantidad modificada con exito");
                         break;
                         case 4:
                             double newprecio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio"));
                             bici.setPrecio(newprecio);
-                            JOptionPane.showMessageDialog(null, "Precio modificada con exito");
                         break;
                         default:
-                            JOptionPane.showMessageDialog(null, "Modificación fallida");
+                            JOptionPane.showMessageDialog(null, "Opción no disponible");
                         break;
                     }
-                }while(opc > 3 || opc < 1);
-            } else
-            {
-                JOptionPane.showMessageDialog(null, "Referencia de repuesto no encontrada");
+                    JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
+                    JOptionPane.showMessageDialog(null, "Datos del repuesto modificado\n"+
+                         "Marca:" + bici.getMarca()+"\n" + "Referencia: " + bici.getReferencia() +"\n" +
+                         "Cantidad: " + bici.getCantidad() + "\n" + "Precio: " + bici.getPrecio() ); 
+                    return;
             }
+        }
+        if(!amodif)//llega falso porque "como no entra al if de arriba el se comvierte en true" y por eso el !amodif(false)
+        {
+            JOptionPane.showMessageDialog(null, "Referencia de repuesto no encontrada");
         }
     }
     

@@ -32,7 +32,7 @@ public class principal
                     m.buscarRep(pila);
                     break;
                 case 3:
-                m.modifRepuesto(pila);
+                    m.modifRepuesto(pila);
                     break;
                 case 4:
                     break;
